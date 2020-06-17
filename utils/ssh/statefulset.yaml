@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: openssh-relay
+  namespace: utils
+spec:
+  replicas: 1
+  serviceName: "openssh-relay"
+  selector:
+    matchLabels:
+      app: openssh-relay
+  template:
+    metadata:
+      labels:
+        app: openssh-relay
+    spec:
+      containers:
+      - name: app
+        image: registry.digitalocean.com/streetbot/ssh-relay:latest
+        ports:
+        - containerPort: 2222
+          name: ssh
+        env:
+        - name: PASSWORD_ACCESS
+          value: "true"
+        - name: USER_PASSWORD
+          value: 396908a1f35670eec2b5fee88b188ed3a243f8d2
+        - name: USER_NAME
+          value: streetbot

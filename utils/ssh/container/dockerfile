@@ -1,0 +1,3 @@
+FROM linuxserver/openssh-server:latest
+RUN sed -ri 's/GatewayPorts no/GatewayPorts yes/g' /etc/ssh/sshd_config
+RUN sed -ri 's/AllowTcpForwarding no/AllowTcpForwarding yes/g' /etc/ssh/sshd_config

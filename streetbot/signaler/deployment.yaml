@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signaler
+  namespace: streetbot
+  labels:
+    app: signaler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: signaler
+  template:
+    metadata:
+      labels:
+        app: signaler
+    spec:
+      containers:
+      - name: app
+        image: registry.digitalocean.com/streetbot/signaler:latest
+        ports:
+        - containerPort: 8080

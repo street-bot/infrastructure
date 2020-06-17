@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: openssh-relay
+  namespace: utils
+spec:
+  selector:
+    app: openssh-relay
+  ports:
+  - name: robot
+    protocol: TCP
+    port: 2222
+    targetPort: 2222
+  - name: relayed
+    protocol: TCP
+    port: 2223
+    targetPort: 2223

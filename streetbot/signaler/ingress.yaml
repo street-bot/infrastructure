@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: signaler
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    # nginx.ingress.kubernetes.io/affinity: "cookie"
+    # nginx.ingress.kubernetes.io/session-cookie-name: "ingress-ws"
+spec:
+  tls:
+  - hosts:
+    - signaler.internal.street-bot.com
+    secretName: signaler-tls
+  rules:
+  - host: signaler.internal.street-bot.com
+    http:
+      paths:
+        - backend:
+            serviceName: signaler
+            servicePort: 8080
