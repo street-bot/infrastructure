@@ -22,8 +22,16 @@ spec:
           name: ssh
         env:
         - name: PASSWORD_ACCESS
-          value: "true"
-        - name: USER_PASSWORD
-          value: 396908a1f35670eec2b5fee88b188ed3a243f8d2
+          value: "false"
+        - name: PUBLIC_KEY_FILE
+          value: "/var/ssh/authorized_keys"
         - name: USER_NAME
           value: streetbot
+        volumeMounts:
+          - name: authorized-keys
+            mountPath: "/var/ssh"
+            readOnly: true
+      volumes:
+      - name: authorized-keys
+        secret:
+          secretName: authorized-keys
